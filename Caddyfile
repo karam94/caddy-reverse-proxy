@@ -22,13 +22,13 @@
 	# API (backend)
 	# =========================
 	handle {$BACKEND_PATH:/api}/* {
-		reverse_proxy {$BACKEND_DOMAIN}:{$BACKEND_PORT}
+		reverse_proxy http://{$BACKEND_DOMAIN}
 	}
 
 	# =========================
 	# FRONTEND (catch-all)
 	# =========================
 	handle {
-		reverse_proxy {$FRONTEND_DOMAIN}:{$FRONTEND_PORT}
+		reverse_proxy http://{$FRONTEND_DOMAIN}
 	}
 }
