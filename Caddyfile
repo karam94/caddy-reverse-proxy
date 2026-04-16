@@ -19,16 +19,26 @@
 	}
 
 	# =========================
-	# API (backend)
+	# API
 	# =========================
 	handle {$BACKEND_PATH:/api}/* {
-		reverse_proxy http://{$BACKEND_DOMAIN}
+		reverse_proxy {
+			to {$BACKEND_DOMAIN}:8080
+			transport http {
+				dial_timeout 30s
+			}
+		}
 	}
 
 	# =========================
-	# FRONTEND (catch-all)
+	# FRONTEND
 	# =========================
 	handle {
-		reverse_proxy http://{$FRONTEND_DOMAIN}
+		reverse_proxy {
+			to {$FRONTEND_DOMAIN}:8080
+			transport http {
+				dial_timeout 30s
+			}
+		}
 	}
 }
